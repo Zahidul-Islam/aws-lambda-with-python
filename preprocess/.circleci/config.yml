@@ -1,0 +1,37 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/preprocess
+
+    docker:
+      - image: circleci/python:3.7
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - dependencies-node-{{ checksum "package.json" }}
+            - dependencies-node
+
+      - run:
+          name: Install node and npm
+          command: |
+            curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+            sudo apt-get install -y nodejs
+            node --version && npm -v
+
+      - run:
+          name: Install Serverless CLI and dependencies
+          command: |
+            sudo npm i -g serverless
+            npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: dependencies-node-{{ checksum "package.json" }}
+
+      - run:
+          name: Deploy application
+          command: sls deploy -v

@@ -1,0 +1,13 @@
+service: preprocess
+
+provider:
+  name: aws
+  runtime: python3.7
+
+functions:
+  process:
+    handler: handler.process
+    events:
+      - http:
+          path: preprocess
+          method: post
