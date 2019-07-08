@@ -8,6 +8,24 @@
 - You can run code with zero administration. Just upload your code and Lambda takes care of everything required to run and scale your code with high availability.
 - You can set up your code to automatically trigger from other AWS services or call it directly from any web or mobile app
 
+## AWS Lambda Limits 
+
+### Runtime environment limitations:
+
+- The disk space (`/tmp`) is limited to 512 MB
+- The deployment package size is 50 MB (zipped, for direct upload)
+- Memory range is from 128 MB to 3,008 MB, in 64 MB increments.
+- Maximum execution timeout for a function is 900 seconds (15 minutes)
+- Function environment variables is limited to 4 KB
+- Function can have up to 5 layers
+
+> The total unzipped size of the function and all layers can't exceed the unzipped deployment package size limit of 250 MB.
+
+### Requests limitations by lambda:
+
+- Request and response (synchronous calls) body payload size can be up to to 6 MB
+- Event request (asynchronous calls) body can be up to 256 KB
+
 ## Serverless Tools
 
 - Serverless Framework
